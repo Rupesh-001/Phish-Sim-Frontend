@@ -1,0 +1,258 @@
+/* register.css — centered register card with cyber theme + transitions
+   Holo image: /mnt/data/1a09052f-a16a-473b-ad52-f017e873c302.png
+*/
+
+/* -------- variables -------- */
+:root{
+  --bg: #02060a;
+  --panel: #06121a;
+  --neon: #00ff66;
+  --neon-2: #14cc72;
+  --text: #dfffe0;
+  --muted: #6fb48f;
+  --border: rgba(0,255,102,0.08);
+  --glow: 0 12px 48px rgba(0,255,102,0.08);
+  --card-radius: 12px;
+  --transition-fast: 120ms;
+  --transition-mid: 220ms;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* --- Base / reset --- */
+* { box-sizing: border-box; }
+html,body,#root { height:100%; margin:0; background: linear-gradient(180deg,var(--bg), #041018 140%); color:var(--text); }
+
+/* Make animations respect user preference */
+@media (prefers-reduced-motion: reduce) {
+  :root { --transition-fast: 0ms; --transition-mid: 0ms; }
+  .register-holo, .register-card::before { animation: none; transition: none; transform: none; filter: none; }
+}
+
+/* --- Centering wrapper (same as login.css) --- */
+.auth-wrapper {
+  min-height: 100vh;                /* full viewport height */
+  display: flex;
+  align-items: center;              /* vertical center */
+  justify-content: center;          /* horizontal center */
+  padding: 20px;
+  position: relative;
+  background: linear-gradient(180deg, #02060a 0%, #041018 140%);
+}
+
+/* subtle cyber grid behind the card */
+.auth-background-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(0,255,102,0.015) 1px, transparent 1px);
+  background-size: 28px 28px;
+  opacity: 0.35;
+  mix-blend-mode: overlay;
+  transform: translateZ(0);
+}
+
+/* --- Card --- */
+.register-card {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 28px;
+  border-radius: var(--card-radius);
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.12));
+  border: 1px solid var(--border);
+  box-shadow: 0 18px 60px rgba(3,8,12,0.7);
+  position: relative;
+  color: var(--text);
+  overflow: hidden;
+  transform: translateY(0);
+  transition: transform var(--transition-mid) cubic-bezier(.2,.9,.2,1), box-shadow var(--transition-mid);
+}
+
+/* gentle hover lift */
+@media (hover: hover) and (pointer: fine) {
+  .register-card:hover { transform: translateY(-6px); box-shadow: var(--glow); }
+}
+
+/* holo accent (uses uploaded image) */
+.register-card::before {
+  content: "";
+  position: absolute;
+  left: -10%;
+  top: -60px;
+  width: 140%;
+  height: 160px;
+  background-image: url("/mnt/data/1a09052f-a16a-473b-ad52-f017e873c302.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.04;
+  filter: blur(10px);
+  transform: rotate(-4deg);
+  pointer-events: none;
+  transition: opacity var(--transition-mid) ease;
+}
+
+/* animated holo stripe overlay */
+.register-holo {
+  position: absolute;
+  top: -80px;
+  left: -18%;
+  width: 140%;
+  height: 120px;
+  background: linear-gradient(90deg, transparent, rgba(0,255,102,0.04), rgba(20,204,120,0.02), transparent);
+  filter: blur(10px);
+  transform: rotate(-4deg);
+  pointer-events: none;
+  animation: holo-move 9s linear infinite;
+  opacity: 0.95;
+}
+@keyframes holo-move {
+  0% { transform: translateY(-10%) rotate(-4deg); }
+  50% { transform: translateY(10%) rotate(-4deg); }
+  100% { transform: translateY(-10%) rotate(-4deg); }
+}
+
+/* --- Titles --- */
+.register-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--neon);
+  margin: 0 0 12px 0;
+  text-shadow: 0 0 10px rgba(0,255,102,0.12);
+  letter-spacing: 0.6px;
+}
+
+/* --- Inputs --- */
+.register-input {
+  width: 100%;
+  padding: 12px 14px;
+  background: rgba(0,0,0,0.28);
+  border-radius: 8px;
+  border: 1px solid rgba(0,255,102,0.10);
+  color: var(--text);
+  font-size: 0.96rem;
+  outline: none;
+  margin-bottom: 12px;
+  transition: box-shadow var(--transition-fast) ease, border-color var(--transition-fast) ease, transform var(--transition-fast);
+}
+.register-input::placeholder { color: rgba(200,255,220,0.28); }
+.register-input:focus {
+  border-color: var(--neon);
+  box-shadow: 0 8px 30px rgba(0,255,102,0.08);
+  transform: translateY(-1px);
+}
+
+/* --- Button --- */
+.register-btn {
+  width: 100%;
+  padding: 12px 14px;
+  margin-top: 8px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 800;
+  font-size: 0.98rem;
+  color: #041421;
+  background: linear-gradient(90deg, var(--neon), var(--neon-2));
+  box-shadow: 0 14px 40px rgba(0,255,102,0.12);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast);
+}
+.register-btn:active { transform: translateY(1px) scale(.998); }
+@media (hover: hover) and (pointer: fine) {
+  .register-btn:hover { transform: translateY(-3px); box-shadow: 0 22px 64px rgba(0,255,102,0.16); filter: saturate(1.05); }
+}
+.register-btn:focus-visible { outline: 3px solid rgba(0,255,102,0.08); outline-offset: 2px; }
+.register-btn[disabled] { opacity: .5; cursor:not-allowed; box-shadow:none; transform:none; }
+
+/* --- Message area --- */
+.register-msg {
+  margin-top: 10px;
+  font-size: 0.88rem;
+  color: var(--neon);
+  text-shadow: 0 0 8px rgba(0,255,102,0.12);
+}
+.register-msg.error { color: #ff6b6b; text-shadow: none; }
+
+/* --- Switch link row below form --- */
+.switch-text {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 0.92rem;
+  color: rgba(200,255,220,0.45);
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  align-items:center;
+}
+.switch-link {
+  color: var(--neon);
+  font-weight: 800;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 6px;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+  background: transparent;
+  border: 1px solid transparent;
+}
+.switch-link:hover,
+.switch-link:focus { transform: translateY(-3px); background: rgba(0,255,102,0.03); box-shadow: 0 12px 36px rgba(0,255,102,0.04); }
+
+/* --- Tiny helpers --- */
+.input-with-icon { position:relative; }
+.input-with-icon .icon { position:absolute; right:12px; top:50%; transform:translateY(-50%); color: rgba(200,255,220,0.28); pointer-events:none; }
+
+/* accessibility helpers */
+.register-card[aria-hidden="true"] { display:none; }
+
+/* small responsive adjustments */
+@media (max-width:640px) {
+  .register-card { margin: 12px; width: calc(100% - 24px); max-width: 420px; padding: 20px; }
+}
+
+/* ----------------------
+   Transition helpers for auth switch (append to bottom)
+   ---------------------- */
+
+.auth-card-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+}
+
+/* base state for direct child cards */
+.auth-card-wrap > .register-card,
+.auth-card-wrap > .login-card {
+  transition: opacity 260ms ease, transform 260ms ease;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* anim-out: fade + slide up the currently visible card */
+.auth-card-wrap.anim-out > .register-card,
+.auth-card-wrap.anim-out > .login-card {
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+}
+
+/* anim-in: the new card plays a small slide-in from below */
+.auth-card-wrap.anim-in > .register-card,
+.auth-card-wrap.anim-in > .login-card {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: auth-slide-in 320ms ease forwards;
+}
+
+@keyframes auth-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

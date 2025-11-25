@@ -1,0 +1,289 @@
+/* challengeRunner.css
+   Cyber black + neon green theme for ChallengeRunner
+   Updated: stronger contrast for email/question area, forced readable nested elements,
+   improved focus states and accessible sizing.
+   Screenshot reference: /mnt/data/2cbf2e0b-d33f-4576-bec8-6526629c129b.png
+*/
+
+/* variables / theme */
+:root{
+  --bg-contrast: #050607;
+  --panel: #0b1011;
+  --panel-2: #0f1415;
+  --neon: #00ff66;
+  --neon-2: #00cc88;
+  --muted: rgba(180,255,200,0.12);
+  --accent-border: rgba(0,255,102,0.12);
+  --soft-border: rgba(255,255,255,0.03);
+  --glass: rgba(255,255,255,0.02);
+  --text: #e6ffee;
+  --body-text: #cfeee0; /* used for readable email body */
+  --muted-text: rgba(200,255,210,0.60);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* root container for the runner (centered panel) */
+.cr-root {
+  width: 100%;
+  max-width: 920px;
+  margin: 22px auto;
+  padding: 22px;
+  background: linear-gradient(180deg, rgba(10,10,12,0.86), rgba(6,8,10,0.95));
+  border-radius: 14px;
+  border: 1px solid var(--soft-border);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+  color: var(--text);
+}
+
+/* header row */
+.cr-header {
+  display: flex;
+  gap: 18px;
+  align-items: start;
+}
+.cr-logo {
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.6), rgba(8,12,10,0.9));
+  border: 1px solid rgba(0,255,102,0.06);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  flex-shrink:0;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.6), inset 0 2px 6px rgba(255,255,255,0.02);
+}
+.cr-logo img { width:48px; height:48px; object-fit:contain; }
+
+/* title & meta */
+.cr-title { font-size: 1.6rem; font-weight:800; color: var(--neon); margin:0; line-height:1.05; }
+.cr-sender { margin-top:6px; color: var(--muted-text); font-size:0.95rem; }
+
+/* ===========================
+   EMAIL / QUESTION AREA (UPDATED)
+   =========================== */
+/* stronger, readable email body */
+.cr-email {
+  margin-top: 16px;
+  padding: 18px;
+  background: linear-gradient(180deg, rgba(8,16,14,0.78), rgba(12,22,18,0.86));
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.035);
+  color: var(--body-text);                /* default text color for content */
+  font-size: 1rem;
+  line-height: 1.55;
+  overflow:auto;
+  max-height: 360px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.01);
+  -webkit-font-smoothing:antialiased;
+}
+
+/* Force readable color for any nested tags (overrides dark inline colors).
+   NOTE: This uses !important to ensure third-party HTML doesn't become unreadable.
+   If you prefer to sanitize HTML instead, remove these rules and purge inline color styles.
+*/
+.cr-email,
+.cr-email * {
+  color: var(--body-text) !important;
+  background: transparent !important;
+  text-shadow: none !important;
+}
+
+/* Links inside email should be neon and clearly visible */
+.cr-email a {
+  color: var(--neon) !important;
+  text-decoration: underline;
+  font-weight: 700;
+  word-break: break-word;
+}
+
+/* Make code / pre blocks readable */
+.cr-email pre,
+.cr-email code {
+  color: #d8fbe0 !important;
+  background: rgba(0,0,0,0.18) !important;
+  padding: 8px !important;
+  border-radius: 6px !important;
+  overflow-x: auto !important;
+  font-family: "Roboto Mono", "Source Code Pro", monospace !important;
+  font-size: 0.93rem !important;
+}
+
+/* images: ensure good separation and optional subtle bg for contrast */
+.cr-email img {
+  max-width:100%;
+  height:auto;
+  border-radius:6px;
+  display:block;
+  margin:12px 0;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.06);
+  padding: 4px;
+}
+
+/* If an element inside sets opacity too low, make it readable */
+.cr-email *[style*="opacity"] { opacity: 1 !important; }
+
+/* invoice / external file link class (used by JSX anchor) */
+.cr-link {
+  display:inline-block;
+  padding:8px 10px;
+  border-radius:6px;
+  background: rgba(0,0,0,0.12);
+  border: 1px solid rgba(255,255,255,0.03);
+  color: var(--neon);
+  font-weight:700;
+  text-decoration:none;
+  margin-top:6px;
+}
+
+/* ===========================
+   OPTIONS / CHOICES
+   =========================== */
+/* options list */
+.cr-options { margin-top:16px; display:flex; flex-direction:column; gap:10px; }
+
+.cr-option {
+  display:flex;
+  gap:12px;
+  align-items:center;
+  padding:14px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.03);
+  background: linear-gradient(180deg, rgba(0,0,0,0.14), rgba(0,0,0,0.22));
+  cursor:pointer;
+  transition: transform .12s cubic-bezier(.2,.9,.2,1), box-shadow .12s ease, border-color .12s;
+  -webkit-tap-highlight-color: transparent;
+}
+.cr-option:hover { transform: translateY(-3px); box-shadow: 0 18px 40px rgba(0,255,102,0.04); border-color: rgba(0,255,102,0.06); }
+
+.cr-option.active {
+  background: linear-gradient(90deg, rgba(0,120,60,0.12), rgba(0,255,102,0.06));
+  border-color: rgba(0,255,102,0.14);
+  box-shadow: 0 18px 48px rgba(0,255,102,0.06);
+}
+
+/* ensure option text is readable even if nested HTML tries to color it */
+.cr-option .opt-text { color: #d8fbe0; font-size:0.98rem; }
+
+/* option icon */
+.cr-option .opt-bullet {
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background: rgba(0,0,0,0.45);
+  border:1px solid rgba(0,255,102,0.06);
+  color: var(--neon);
+  font-weight:800;
+  flex-shrink:0;
+  font-size:0.95rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.02);
+}
+
+/* keyboard focus */
+.cr-option:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(0,255,102,0.06), 0 12px 30px rgba(0,0,0,0.6);
+  transform: translateY(-2px);
+}
+
+/* give aria-selected a visible change for screen readers + sighted users */
+.cr-option[aria-selected="true"] {
+  border-color: rgba(0,255,102,0.18);
+}
+
+/* info message */
+.cr-info { margin-top:12px; color: var(--neon); font-weight:700; font-size:0.95rem; }
+
+/* ===========================
+   ACTIONS (buttons)
+   =========================== */
+.cr-actions {
+  margin-top:16px;
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+
+/* primary button */
+.cr-btn {
+  padding:10px 16px;
+  border-radius:10px;
+  font-weight:800;
+  cursor:pointer;
+  border:none;
+  background: linear-gradient(90deg, var(--neon), var(--neon-2));
+  color: #041421;
+  box-shadow: 0 18px 48px rgba(0,255,102,0.12);
+  transition: transform .12s ease, box-shadow .12s ease;
+  font-size:0.98rem;
+}
+.cr-btn:hover { transform: translateY(-3px); box-shadow: 0 28px 64px rgba(0,255,102,0.16); }
+.cr-btn[disabled] { opacity:0.6; cursor:not-allowed; transform:none; box-shadow:none; }
+
+/* secondary button */
+.cr-btn--muted {
+  background: linear-gradient(180deg, rgba(15,15,15,0.6), rgba(10,10,10,0.6));
+  color: #dbeee0;
+  border: 1px solid rgba(255,255,255,0.03);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.7);
+}
+
+/* explanation button aligned right */
+.cr-explain { margin-left:auto; padding:8px 12px; border-radius:8px; background:transparent; border:1px solid rgba(255,255,255,0.03); color:#d8fbe0; cursor:pointer; font-size:0.92rem; }
+
+/* ===========================
+   RESULT BOX + BADGES
+   =========================== */
+.cr-result {
+  margin-top:16px;
+  padding:14px;
+  border-radius:10px;
+  border:1px solid rgba(0,255,102,0.06);
+  background: linear-gradient(180deg, rgba(0,12,8,0.24), rgba(0,6,8,0.12));
+  color: #d8fbe0;
+}
+.cr-result .correct { color: var(--neon); font-weight:900; font-size:1.05rem; }
+.cr-result .incorrect { color: #ff6b6b; font-weight:900; font-size:1.05rem; }
+
+.cr-badge {
+  display:inline-block;
+  padding:6px 10px;
+  background: rgba(0,10,0,0.5);
+  color: var(--neon);
+  border-radius:8px;
+  font-weight:800;
+  font-size:0.78rem;
+  border:1px solid rgba(0,255,102,0.06);
+}
+
+/* subtle responsive tweaks for action row on tiny screens */
+@media (max-width:520px) {
+  .cr-actions { flex-direction: column; align-items: stretch; }
+  .cr-explain { margin-left:0; align-self:flex-end; }
+}
+
+/* responsive tweaks */
+@media (max-width:720px) {
+  .cr-root { padding: 14px; margin: 12px; border-radius:10px; }
+  .cr-header { gap:12px; align-items:center; }
+  .cr-title { font-size:1.25rem; }
+  .cr-logo { width:54px; height:54px; }
+  .cr-email { max-height: 260px; font-size:0.95rem; }
+  .cr-option .opt-bullet { width:36px; height:36px; font-size:0.9rem; }
+}
+
+/* generic utility focus style for keyboard navigation */
+:focus {
+  outline: none;
+}
+:focus-visible {
+  outline: 3px solid rgba(0,255,102,0.10);
+  outline-offset: 3px;
+}

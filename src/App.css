@@ -1,0 +1,179 @@
+/* src/app.css
+   Global cyber theme (black + neon green)
+   - Left logo, centered nav, right signout
+   - Strong active and signout styles
+   - Holo background accent using uploaded image
+*/
+
+/* --- variables --- */
+:root{
+  --bg: #010407;
+  --panel: #071018;
+  --neon: #00ff66;
+  --neon-2: #00cc88;
+  --muted: rgba(180,255,200,0.08);
+  --text: #dfffe0;
+  --glass: rgba(255,255,255,0.02);
+  --glass-2: rgba(0,0,0,0.12);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* reset & base */
+* { box-sizing: border-box; }
+html,body,#root { height:100%; margin:0; background: linear-gradient(180deg,var(--bg), #041421); color:var(--text); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+
+/* app root */
+.app-root { min-height:100vh; }
+
+/* header: full-width dark bar that blends with page */
+.app-header{
+  width:100%;
+  background: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.28));
+  border-bottom: 1px solid rgba(0,255,102,0.02);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+  padding: 8px 0;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+/* inner header row (centers and constrains) */
+.app-header-inner{
+  width:100%;
+  max-width:1100px;
+  margin:0 auto;
+  padding: 0 14px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+/* left: logo */
+.app-left { flex: 0 0 auto; display:flex; align-items:center; gap:12px; }
+.app-logo{
+  font-weight:900;
+  font-size:1.25rem;
+  color:var(--neon);
+  padding:8px 12px;
+  border-radius:8px;
+  background: rgba(0,0,0,0.10);
+  box-shadow: 0 10px 30px rgba(0,255,102,0.03);
+  text-transform:none;
+  letter-spacing:0.6px;
+}
+
+/* nav (center) */
+.app-nav{
+  display:flex;
+  gap:10px;
+  flex:1 1 auto;
+  justify-content:center;
+  align-items:center;
+}
+
+/* right */
+.app-right{ flex:0 0 auto; display:flex; align-items:center; gap:8px; }
+
+/* NAV ITEMS - pill style */
+.nav-item{
+  background: rgba(0,0,0,0.12);
+  border: 1px solid rgba(0,255,102,0.04);
+  color: var(--neon);
+  padding:10px 14px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:700;
+  transition: transform .12s ease, box-shadow .12s ease, background .12s, color .12s;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+  backdrop-filter: blur(4px);
+}
+
+/* non-active subtle look, active pops */
+.nav-item:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(0,255,102,0.06);
+  background: linear-gradient(90deg, rgba(0,255,102,0.03), rgba(0,200,80,0.02));
+}
+
+/* Active nav item: full neon fill with darker text */
+.nav-item.active{
+  background: linear-gradient(90deg, var(--neon), var(--neon-2));
+  border-color: rgba(0,255,102,0.18);
+  color: #041421;
+  box-shadow: 0 26px 60px rgba(0,255,102,0.14);
+  transform: translateY(-2px);
+}
+
+/* Sign out variant: same strong treatment so it's visible */
+.nav-item.signout{
+  background: linear-gradient(90deg, var(--neon), var(--neon-2));
+  border: 1px solid rgba(0,255,102,0.18);
+  color: #041421;
+  font-weight:900;
+  padding: 10px 14px;
+  box-shadow: 0 20px 48px rgba(0,255,102,0.14);
+}
+.nav-item.signout:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 28px 60px rgba(0,255,102,0.18), inset 0 -4px 12px rgba(0,0,0,0.12);
+}
+
+/* keyboard focus ring (accessibility) */
+.nav-item:focus {
+  outline: 3px solid rgba(0,255,102,0.12);
+  outline-offset: 3px;
+}
+
+/* main centered container (same width as header inner) */
+.app-container{
+  max-width:1100px;
+  margin: 22px auto;
+  padding: 0 12px 60px;
+  position:relative;
+}
+
+/* holo / background accent (faint) - uses uploaded image file */
+.app-container::before{
+  content: "";
+  display:block;
+  position:absolute;
+  left:-120px;
+  top:-120px;
+  width:600px;
+  height:600px;
+  background-image: url("/mnt/data/7702a7cf-d0f3-48fa-ba9d-cd77fb069cee.png");
+  background-size: cover;
+  opacity: 0.03;
+  filter: blur(10px);
+  pointer-events:none;
+}
+
+/* auth grid (login/register) */
+.auth-grid{ display:grid; grid-template-columns:1fr; gap:18px; }
+@media(min-width:900px){ .auth-grid{ grid-template-columns: 1fr 1fr; } }
+
+/* helper utilities */
+.hidden{ display:none !important; }
+
+/* responsive: collapse nav gracefully */
+@media(max-width:720px){
+  .app-nav{
+    gap:8px;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+  .nav-item{ padding:8px 10px; font-size:0.95rem; }
+  .app-logo{ font-size:1rem; padding:6px 8px; }
+}
+
+/* extra: small shadowed container used inside pages (keeps visual consistency) */
+.panel {
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));
+  border-radius: 12px;
+  border: 1px solid rgba(0,255,102,0.02);
+  box-shadow: 0 18px 50px rgba(2,6,10,0.6);
+  padding: 12px;
+}
+
+/* ensure header and page use same vertical rhythm */
+.app-header, .app-container { box-sizing: border-box; }

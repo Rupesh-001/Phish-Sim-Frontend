@@ -1,0 +1,163 @@
+/* === GLOBAL CYBER VARIABLES === */
+:root {
+  --gen-bg: #02070b;
+  --gen-panel: #06121a;
+  --gen-text: #baffd2;
+  --gen-muted: #5f9077;
+  --gen-neon: #00ff66;
+  --gen-neon-soft: #14cc72;
+  --gen-border: rgba(0, 255, 102, 0.18);
+  --gen-dark-border: rgba(0, 255, 102, 0.08);
+  --gen-glow: 0 0 22px rgba(0, 255, 102, 0.3);
+}
+
+/* === PAGE MAIN CONTAINER === */
+.gen-root {
+  background: linear-gradient(180deg, #010309, #031017 120%);
+  padding: 32px;
+  border-radius: 14px;
+  border: 1px solid var(--gen-dark-border);
+  color: var(--gen-text);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+  max-width: 680px;
+  margin: auto;
+}
+
+/* Title */
+.gen-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--gen-neon);
+  letter-spacing: 1px;
+  text-shadow: var(--gen-glow);
+}
+
+/* Labels */
+.gen-label {
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+  color: var(--gen-text);
+}
+
+/* === SELECT (Difficulty) === */
+.gen-select {
+  width: 260px;
+  padding: 10px 40px 10px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--gen-border);
+  background: linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.15));
+  color: var(--gen-neon);
+  font-weight: 700;
+  appearance: none;
+  cursor: pointer;
+  outline: none;
+  transition: 0.15s ease;
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+
+  /* neon SVG arrow */
+  background-image: url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' width='14' height='10' viewBox='0 0 24 24'>\
+<path fill='none' stroke='%2300ff66' stroke-width='2.5' d='M6 9l6 6 6-6'/>\
+</svg>");
+}
+
+.gen-select:hover {
+  border-color: var(--gen-neon);
+  box-shadow: var(--gen-glow);
+}
+
+.gen-select:focus {
+  border-color: var(--gen-neon);
+  box-shadow: 0 0 18px rgba(0, 255, 102, 0.22);
+}
+
+/* Options (works on most browsers) */
+.gen-select option {
+  background: #04120d;
+  color: var(--gen-text);
+  font-weight: 600;
+}
+
+/* === NUMBER INPUT === */
+.gen-input {
+  width: 120px;
+  padding: 10px;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.25);
+  border: 1px solid var(--gen-border);
+  color: var(--gen-neon);
+  font-weight: 700;
+  outline: none;
+  transition: 0.15s ease;
+}
+
+.gen-input:focus {
+  border-color: var(--gen-neon);
+  box-shadow: var(--gen-glow);
+}
+
+/* === BUTTON === */
+.gen-btn {
+  padding: 12px 22px;
+  margin-top: 10px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, var(--gen-neon), var(--gen-neon-soft));
+  border: none;
+  color: #041207;
+  font-weight: 800;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: 0.15s ease;
+  box-shadow: 0 0 12px rgba(0, 255, 102, 0.4);
+}
+
+.gen-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 0 22px rgba(0, 255, 102, 0.6);
+}
+
+.gen-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* === SUCCESS COUNT === */
+.gen-success {
+  font-size: 0.95rem;
+  margin-top: 8px;
+  font-weight: 600;
+  color: var(--gen-neon);
+}
+
+/* === LOGS PANEL === */
+.gen-logs {
+  margin-top: 16px;
+  background: rgba(0,0,0,0.28);
+  border: 1px solid var(--gen-dark-border);
+  border-radius: 10px;
+  padding: 12px;
+  max-height: 260px;
+  overflow-y: auto;
+  font-family: "Consolas", "JetBrains Mono", monospace;
+  font-size: 0.82rem;
+  color: var(--gen-text);
+  box-shadow: inset 0 0 22px rgba(0,0,0,0.45);
+}
+
+.gen-logs::-webkit-scrollbar {
+  width: 10px;
+}
+
+.gen-logs::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--gen-neon), var(--gen-neon-soft));
+  border-radius: 12px;
+}
+
+/* Empty logs */
+.gen-empty {
+  color: var(--gen-muted);
+  text-align: center;
+  padding: 10px;
+}
