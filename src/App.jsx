@@ -11,6 +11,8 @@ import "./App.css"; // global cyber theme
 import "./pages/login.css";    // ensures .auth-wrapper + transition helpers are loaded
 import "./pages/register.css"; // same here
 
+import { apiFetch } from "./apiClient"; // ✅ use centralized API client
+
 export default function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [challenge, setChallenge] = useState(null);
@@ -26,18 +28,19 @@ export default function App() {
 
   async function loadRandom(excludeId = null) {
     try {
-      let url = "/api/challenges/random";
-      if (excludeId) url += `?exclude=${excludeId}`;
+      let path = "/api/challenges/random";
+      if (excludeId) path += `?exclude=${excludeId}`;
 
-      const res = await fetch(url);
-      const data = await res.json();
+      // ✅ use apiFetch so it goes to VITE_API_URL in prod, localhost in dev
+      const data = await apiFetch(path);
       if (!data.challenge) {
         setChallenge(null);
         return null;
       }
       setChallenge(data.challenge);
       return data.challenge;
-    } catch {
+    } catch (err) {
+      console.error("Failed to load random challenge:", err);
       return null;
     }
   }
@@ -146,7 +149,9 @@ export default function App() {
 
             {/* wrapper that gets animation classes applied */}
             <div
-              className={`auth-card-wrap ${isSwitching ? "anim-out" : ""} ${justSwitched ? "anim-in" : ""}`}
+              className={`auth-card-wrap ${isSwitching ? "anim-out" : ""} ${
+                justSwitched ? "anim-in" : ""
+              }`}
             >
               {authPage === "login" ? (
                 <Login onLogin={handleLoginSuccess} onSwitch={handleAuthSwitch} />
